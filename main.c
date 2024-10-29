@@ -75,9 +75,13 @@ void carry(int arr1[],int arr2[], int arr3[]) {
             carry=0;
             arr3[i]=1;
         }
-        else {
+        else if(carry+arr1[i]+arr2[i] == 2) {
             arr3[i]=0;
             carry=1; 
+        }
+        else {
+            arr3[i] =1;
+            carry =1;
         }
     }
 }
@@ -104,8 +108,12 @@ void minus_binary(void) {
     input_num(arr1);
     printf("두번째 8비트 이진수를 입력하세요: ");
     input_num(arr2);
-    if (arr1[0]== 1) convert_Negative(arr1);
-    if (arr2[0]==1) convert_Negative(arr2);
+    convert_Negative(arr2);
+    carry(arr1,arr2,arr3);
+    printf("결과는 이진수로 ");
+    for(int i=0;i<SIZE;i++) printf("%d",arr3[i]);
+    printf("이고, 십진수로 %d입니다",conversion(arr3));
+    
     
 
 
@@ -116,7 +124,11 @@ int main (void) {
     printf("1. 이진수 변환기 2. 이진수 덧셈기 3. 이진수 뺄셈기\n번호를 선택하세요: ");
     scanf("%hd",&select);
     getchar();
-    add_binary();
+    switch(select) {
+        case(1): convert(); break;
+        case(2): add_binary(); break;
+        default: minus_binary(); 
+    }
     
     
     return 0;
